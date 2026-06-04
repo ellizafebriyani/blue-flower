@@ -7,8 +7,32 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="icon" href="img/flowers.png" type="image/x-icon">
     <title>flowers</title>
+
+    <style>
+        #musicBtn{
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 99999;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            background: #ff69b4;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
 </head>
+
 <body class="container">
+
+    <audio id="bgMusic" loop>
+        <source src="img/b2.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="musicBtn">▶ Play</button>
+
     <div class="night"></div>
     <div class="flowers">
       <div class="flower flower--1">
@@ -27,8 +51,8 @@
           <div class="flower__light flower__light--6"></div>
           <div class="flower__light flower__light--7"></div>
           <div class="flower__light flower__light--8"></div>
-  
         </div>
+
         <div class="flower__line">
           <div class="flower__line__leaf flower__line__leaf--1"></div>
           <div class="flower__line__leaf flower__line__leaf--2"></div>
@@ -55,8 +79,8 @@
           <div class="flower__light flower__light--6"></div>
           <div class="flower__light flower__light--7"></div>
           <div class="flower__light flower__light--8"></div>
-  
         </div>
+
         <div class="flower__line">
           <div class="flower__line__leaf flower__line__leaf--1"></div>
           <div class="flower__line__leaf flower__line__leaf--2"></div>
@@ -81,8 +105,8 @@
           <div class="flower__light flower__light--6"></div>
           <div class="flower__light flower__light--7"></div>
           <div class="flower__light flower__light--8"></div>
-  
         </div>
+
         <div class="flower__line">
           <div class="flower__line__leaf flower__line__leaf--1"></div>
           <div class="flower__line__leaf flower__line__leaf--2"></div>
@@ -306,6 +330,45 @@
         </div>
       </div>
     </div>
+
+    <script>
+        const music = document.getElementById("bgMusic");
+        const btn = document.getElementById("musicBtn");
+
+        if(localStorage.getItem("musicPlaying") === "true"){
+            const savedTime = parseFloat(localStorage.getItem("musicTime")) || 0;
+            music.currentTime = savedTime;
+
+            music.play().then(()=>{
+                btn.innerHTML = "⏸ Stop";
+            }).catch(()=>{});
+        }
+
+        btn.addEventListener("click",()=>{
+
+            if(music.paused){
+                music.currentTime = parseFloat(localStorage.getItem("musicTime")) || 0;
+                music.play();
+
+                localStorage.setItem("musicPlaying","true");
+                btn.innerHTML = "⏸ Stop";
+
+            }else{
+                localStorage.setItem("musicTime", music.currentTime);
+                music.pause();
+
+                localStorage.setItem("musicPlaying","false");
+                btn.innerHTML = "▶ Play";
+            }
+        });
+
+        setInterval(()=>{
+            if(!music.paused){
+                localStorage.setItem("musicTime", music.currentTime);
+            }
+        },1000);
+    </script>
+
     <script src="main.js"></script>
-  </body>
+</body>
 </html>
