@@ -1,4 +1,4 @@
-3D BLUE FLOWER BLOOM USING HTML, CSS, JAVASCRIPT 
+3D BLUE FLOWER BLOOM PROJECT USING HTML, CSS, JAVASCRIPT 
 
 <img width="410" height="344" alt="image" src="https://github.com/user-attachments/assets/a35bfc83-50ad-4310-854d-3aac46488168" />
 
