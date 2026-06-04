@@ -15,8 +15,6 @@
         <source src="img/b2.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicBtn">▶ Play Music</button>
-
     <div class="greetings">
         <span>H</span>
         <span>A</span>
@@ -37,65 +35,30 @@
     </div>
 
     <div class="button">
-        <button>
-            <a href="flower.html">Tap Here</a>
+        <button id="tapBtn" onclick="handleTap()">
+            Tap Here
         </button>
     </div>
 
-    <style>
-        #musicBtn{
-            position:fixed;
-            top:20px;
-            right:20px;
-            z-index:99999;
-            padding:10px 18px;
-            border:none;
-            border-radius:10px;
-            background:#ff69b4;
-            color:#fff;
-            font-size:14px;
-            cursor:pointer;
-        }
-    </style>
-
     <script>
         const music = document.getElementById("bgMusic");
-        const btn = document.getElementById("musicBtn");
 
-        if(localStorage.getItem("musicPlaying") === "true"){
-            const savedTime = parseFloat(localStorage.getItem("musicTime")) || 0;
-            music.currentTime = savedTime;
+        function handleTap() {
+            // Mulai musik
+            music.currentTime = 0;
+            music.play().catch(() => {});
+            localStorage.setItem("musicPlaying", "true");
+            localStorage.setItem("musicTime", "0");
 
-            music.play().then(()=>{
-                btn.innerHTML = "⏸ Stop Music";
-            }).catch(()=>{});
+            // Pindah ke flower.html
+            window.location.href = "flower.html";
         }
 
-        btn.addEventListener("click",()=>{
-
-            if(music.paused){
-
-                music.currentTime = parseFloat(localStorage.getItem("musicTime")) || 0;
-                music.play();
-
-                localStorage.setItem("musicPlaying","true");
-                btn.innerHTML = "⏸ Stop Music";
-
-            }else{
-
-                localStorage.setItem("musicTime", music.currentTime);
-                music.pause();
-
-                localStorage.setItem("musicPlaying","false");
-                btn.innerHTML = "▶ Play Music";
-            }
-        });
-
-        setInterval(()=>{
-            if(!music.paused){
+        setInterval(() => {
+            if (!music.paused) {
                 localStorage.setItem("musicTime", music.currentTime);
             }
-        },1000);
+        }, 1000);
     </script>
 
 </body>
