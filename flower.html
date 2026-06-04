@@ -31,7 +31,7 @@
         <source src="img/b2.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicBtn">▶ Play</button>
+    <button id="musicBtn" onclick="restartApp()">🔄 Restart</button>
 
     <div class="night"></div>
     <div class="flowers">
@@ -333,40 +333,28 @@
 
     <script>
         const music = document.getElementById("bgMusic");
-        const btn = document.getElementById("musicBtn");
 
-        if(localStorage.getItem("musicPlaying") === "true"){
+        // Auto-play musik dari localStorage saat masuk flower.html
+        if (localStorage.getItem("musicPlaying") === "true") {
             const savedTime = parseFloat(localStorage.getItem("musicTime")) || 0;
             music.currentTime = savedTime;
-
-            music.play().then(()=>{
-                btn.innerHTML = "⏸ Stop";
-            }).catch(()=>{});
+            music.play().catch(() => {});
         }
 
-        btn.addEventListener("click",()=>{
-
-            if(music.paused){
-                music.currentTime = parseFloat(localStorage.getItem("musicTime")) || 0;
-                music.play();
-
-                localStorage.setItem("musicPlaying","true");
-                btn.innerHTML = "⏸ Stop";
-
-            }else{
-                localStorage.setItem("musicTime", music.currentTime);
-                music.pause();
-
-                localStorage.setItem("musicPlaying","false");
-                btn.innerHTML = "▶ Play";
-            }
-        });
-
-        setInterval(()=>{
-            if(!music.paused){
+        // Simpan waktu musik setiap detik
+        setInterval(() => {
+            if (!music.paused) {
                 localStorage.setItem("musicTime", music.currentTime);
             }
-        },1000);
+        }, 1000);
+
+        // Tombol Restart: stop musik, reset localStorage, balik ke index
+        function restartApp() {
+            music.pause();
+            localStorage.setItem("musicPlaying", "false");
+            localStorage.setItem("musicTime", "0");
+            window.location.href = "index.html";
+        }
     </script>
 
     <script src="main.js"></script>
