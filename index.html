@@ -1,65 +1,165 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css/style.css">
+
     <link rel="icon" href="img/flowers.png" type="image/x-icon">
+
     <title>Flowers</title>
+
+
+
+    <style>
+
+        .copyright {
+
+            position: fixed;
+
+            bottom: 15px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: rgba(255,255,255,0.7);
+
+            font-size: 14px;
+
+            letter-spacing: 1px;
+
+            text-align: center;
+
+            z-index: 999;
+
+            user-select: none;
+
+        }
+
+    </style>
+
 </head>
+
+
 
 <body>
 
+
+
     <audio id="bgMusic" loop>
+
         <source src="img/b2.mp3" type="audio/mpeg">
+
     </audio>
 
-    <div class="greetings">
-        <span>H</span>
-        <span>A</span>
-        <span>I</span>
-    </div>
+
 
     <div class="greetings">
-        <span>T</span>
+
         <span>H</span>
-        <span>E</span>
-        <span>R</span>
-        <span>E</span>
-        <span>!</span>
+
+        <span>A</span>
+
+        <span>I</span>
+
     </div>
+
+
+
+    <div class="greetings">
+
+        <span>T</span>
+
+        <span>H</span>
+
+        <span>E</span>
+
+        <span>R</span>
+
+        <span>E</span>
+
+        <span>!</span>
+
+    </div>
+
+
 
     <div class="description">
-        <span>I've got something spesial for you!!</span>
+
+        <span>I've got something special for you!!</span>
+
     </div>
+
+
 
     <div class="button">
+
         <button id="tapBtn" onclick="handleTap()">
+
             Tap Here
+
         </button>
+
     </div>
 
+
+
+    <!-- Copyright -->
+
+    <div class="copyright">
+
+        Made by El 
+
+    </div>
+
+
+
     <script>
+
         const music = document.getElementById("bgMusic");
 
+
+
         function handleTap() {
-            // Mulai musik
+
             music.currentTime = 0;
+
             music.play().catch(() => {});
+
             localStorage.setItem("musicPlaying", "true");
+
             localStorage.setItem("musicTime", "0");
 
-            // Pindah ke flower.html
+
+
             window.location.href = "flower.html";
+
         }
 
+
+
         setInterval(() => {
+
             if (!music.paused) {
+
                 localStorage.setItem("musicTime", music.currentTime);
+
             }
+
         }, 1000);
+
     </script>
 
+
+
 </body>
+
 </html>
